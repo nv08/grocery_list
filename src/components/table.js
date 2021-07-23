@@ -17,7 +17,10 @@ export default function Table(props) {
             </tr>
           </thead>
           <tbody>
-            <Tabledata {...props} />
+            {groceries.map((data,i)=>
+              <Tabledata key={i}  data={data} onEdit={props.onEdit} onDelete={props.onDelete} />
+            )}
+            
           </tbody>
         </table>
       ) : (

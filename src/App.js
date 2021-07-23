@@ -6,7 +6,20 @@ import Total from './components/total';
 
 
 function App() {
-
+  const [groceries, setgroceries] = useState([
+    {
+      id:1,
+      item : "Bread",
+      units: 12,
+      unitPrice : 10
+    },
+    {
+      id:2,
+      item : "Milk",
+      units: 5,
+      unitPrice : 30
+    }
+  ])
   const onAdd = (item,units,unitPrice)=>{
       const id = Math.floor(Math.random() * 1000000); //on less value check for data
       const data = {
@@ -22,33 +35,23 @@ function App() {
       console.log(data);
   }
 
-  const editItem = (id,value)=>{
-    const key = Object.keys(value)[0]
-    groceries[groceries.findIndex(g=>g.id===id)][key] = value[key]
-    setgroceries([...groceries])
-    console.log(groceries);
+  const editItem = (id,data)=>{
+    
+    const g = groceries
+    const index = g.findIndex(g=>g.id===id)
+    g[index] = {id,...data}
+    setgroceries(g)
+    
+
   }
   
-  const [groceries, setgroceries] = useState([
-    {
-      id:1,
-      item : "Bread",
-      units: 12,
-      unitPrice : 10
-    },
-    {
-      id:2,
-      item : "Milk",
-      units: 5,
-      unitPrice : 30
-    }
-  ])
+ 
 
   return (
     <div className="App">
       <h2> Grocery List</h2>
       <Input onadd={(a,b,c)=>onAdd(a,b,c)}/>
-      <Table groceries={groceries} onDelete={(id)=>deleteItem(id)} onEdit={(id,value)=>editItem(id,value)}/>
+      <Table groceries={groceries} onDelete={(id)=>deleteItem(id)} onEdit={(id,data)=>editItem(id,data)}/>
       <Total groceries = {groceries}/>
     </div>
   );
