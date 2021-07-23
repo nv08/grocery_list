@@ -32,20 +32,15 @@ function App() {
     
       const data  = groceries.filter(x=>x.id!==Number(id))
       setgroceries(data)
-      console.log(data);
   }
 
   const editItem = (id,data)=>{
     
-    const g = groceries
-    const index = g.findIndex(g=>g.id===id)
-    g[index] = {id,...data}
-    setgroceries(g)
+    const index = groceries.findIndex(g=>g.id===id)
+    groceries[index] = {id,...data}
+    setgroceries([...groceries])
     
-
   }
-  
- 
 
   return (
     <div className="App">

@@ -3,12 +3,12 @@ import React from 'react'
 export default function Total(props) {
     
     const {groceries} = props
-    console.log(groceries);
+    
     const value = groceries.reduce((acc,next)=>{
         acc+=next.units*next.unitPrice
         return acc
     },0)
- 
+    
     return (
         
         <>

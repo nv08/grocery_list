@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -11,17 +11,20 @@ export default function Tabledata({ data, onDelete, onEdit }) {
     unitPrice: data.unitPrice,
   });
 
-  const total = useRef(parseInt(data.units) * parseInt(data.unitPrice))
-
   const handle = (e, fieldName) => {
-    setupdatedValue({ ...updatedValue, [fieldName]: e.target.innerText });
+      const number = parseInt(e.target.innerText)?parseInt(e.target.innerText):e.target.innerText
+    setupdatedValue({ ...updatedValue, [fieldName]: number });
+    
   };
 
   return (
     <>
       <tr>
+
         <td contentEditable={editable} onBlur={(e) => handle(e, "item")}>
+            
           {data.item}
+          
         </td>
         <td contentEditable={editable} onBlur={(e) => handle(e, "units")}>
           {data.units}
@@ -29,7 +32,7 @@ export default function Tabledata({ data, onDelete, onEdit }) {
         <td contentEditable={editable} onBlur={(e) => handle(e, "unitPrice")}>
           {data.unitPrice}
         </td>
-        <td>&#8377;{total.current = data.units * data.unitPrice}</td>
+        <td>&#8377;{data.units * data.unitPrice}</td>
         {!editable ? (
           <td>
             <span>
@@ -44,8 +47,10 @@ export default function Tabledata({ data, onDelete, onEdit }) {
             
             <button
               onClick={() => {
-                onEdit(data.id, updatedValue);
                 seteditable(false);
+                
+                onEdit(data.id, updatedValue);
+                
               }}
             >
               
